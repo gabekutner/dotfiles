@@ -31,10 +31,11 @@ return {
 
         vim.lsp.config('lua_ls', {
             capabilities = capabilities,
+            root_markers = { ".luarc.json", ".luarc.jsonc", ".git" },
             settings = {
                 Lua = {
                     diagnostics = {
-                        globals = { 'redis', 'KEYS', 'ARGV' }
+                        globals = { "vim" },
                     },
                 },
             },
