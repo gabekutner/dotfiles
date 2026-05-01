@@ -1,0 +1,9 @@
+.swap/
+backup/
+undo/
+view/
+session/
+
+.DS_Store
+*.swp
+*.swo
