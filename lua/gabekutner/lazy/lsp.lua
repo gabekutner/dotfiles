@@ -21,9 +21,6 @@ return {
         require("mason").setup()
         require("mason-lspconfig").setup({
             ensure_installed = { "lua_ls", "pyright", "ts_ls", "gopls" },
-            automatic_enable = {
-                exclude = { "ts_ls" },
-            },
         })
 
         require("fidget").setup({})
@@ -47,6 +44,11 @@ return {
 
         vim.lsp.config("ts_ls", {
             capabilities = capabilities,
+            root_dir = function(bufnr, on_dir)
+                local fname = vim.api.nvim_buf_get_name(bufnr)
+                local root = vim.fs.root(fname, { "tsconfig.json", "jsconfig.json", "package.json", ".git" })
+                on_dir(root)
+            end,
         })
 
         vim.lsp.config("gopls", {
@@ -55,7 +57,7 @@ return {
 
         vim.lsp.enable("lua_ls")
         vim.lsp.enable("pyright")
-        -- vim.lsp.enable("ts_ls")
+        vim.lsp.enable("ts_ls")
         vim.lsp.enable("gopls")
 
         cmp.setup({
